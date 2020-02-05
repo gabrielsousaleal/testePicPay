@@ -31,5 +31,6 @@ let fakeList: [Contact] = [
     Contact(name: "Steve Ballmer", photoURL: "https://api.adorable.io/avatars/285/a9.png", id: "a9"),
     Contact(name: "Lucas Romano", photoURL: "https://api.adorable.io/avatars/285/a10.png", id: "a10"),
     Contact(name: "Lucas Cypriano", photoURL: "https://api.adorable.io/avatars/285/a11.png", id: "a11"),
-    Contact(name: "Fernando Nazario", photoURL: "https://api.adorable.io/avatars/285/a12.png", id: "a12")
+    Contact(name: "Fernando Nazario", photoURL: "https://api.adorable.io/avatars/285/a12.png", id: "a12"),
+    Contact(name: "Judar Lima", photoURL: "https://api.adorable.io/avatars/285/a13.png", id: "a13")
 ]
