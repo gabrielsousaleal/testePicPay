@@ -1,27 +1,27 @@
 import Foundation
 
-/******************* VIEWMODEL ********************/
-class ListContactsViewModel {
+final class ListContactsViewModel {
+    
+    //****************************************************************
+    //MARK: Private Properties
+    //****************************************************************
+    
     private let service = ListContactService()
+    private (set) var contacts: [Contact] = []
     
-    private var completion: (([Contact]?, Error?) -> Void)?
-    
-    init() { }
-    
-    func loadContacts(_ completion: @escaping ([Contact]?, Error?) -> Void) {
-        self.completion = completion
-        service.fetchContacts { contacts, err in
-            self.handle(contacts, err)
-        }
-    }
-    
-    private func handle(_ contacts: [Contact]?, _ error: Error?) {
-        if let e = error {
-            completion?(nil, e)
-        }
-        
-        if let contacts = contacts {
-            completion?(contacts, nil)
+    //****************************************************************
+    //MARK: Public Methods
+    //****************************************************************
+            
+    func loadContacts(success: @escaping () -> Void, failure: @escaping (_ title: String, _ message: String) -> Void) {
+        service.fetchContacts { result in
+            switch result {
+            case .success(let contacts):
+                self.contacts = contacts
+                success()
+            case .failure(let error):
+                failure(error.localizedDescription, error.localizedDescription)
+            }
         }
     }
 }

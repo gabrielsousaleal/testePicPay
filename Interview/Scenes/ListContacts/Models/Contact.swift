@@ -1,22 +1,9 @@
 import Foundation
 
-/******************* MODEL ********************/
-class Contact: Decodable {
-    var name: String = ""
-    var photoURL = ""
-    var id = ""
-    
-    init(name: String, photoURL: String, id: String) {
-        self.name = name
-        self.photoURL = photoURL
-        self.id = id
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case photoURL = "photoURL"
-        case id = "id"
-    }
+struct Contact: Decodable {
+    let name: String
+    let photoURL: String
+    let id: String
 }
 
 let fakeList: [Contact] = [

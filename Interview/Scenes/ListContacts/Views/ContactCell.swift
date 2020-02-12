@@ -1,6 +1,57 @@
 import UIKit
 
 class ContactCell: UITableViewCell {
+    
+    //****************************************************************
+    //MARK: Public Properties
+    //****************************************************************
+    
+    var viewModel: ContactCellViewModel?
+    
+    //****************************************************************
+    //MARK: Life Cicle
+    //****************************************************************
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        contactImage.image = nil
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        contactImage.image = UIImage(named: "oi")
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        configureViews()
+    }
+    
+    //****************************************************************
+    //MARK: Public Methods
+    //****************************************************************
+    
+    func setup(viewModel: ContactCellViewModel) {
+        self.viewModel = viewModel
+        viewModel.fetchPhoto { image in
+            DispatchQueue.main.async {
+                self.contactImage.image = image
+            }
+        }
+        fullnameLabel.text = viewModel.name
+    }
+    
+    //****************************************************************
+    //MARK: View Creation
+    //****************************************************************
+    
     lazy var contactImage: UIImageView = {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
@@ -15,18 +66,6 @@ class ContactCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        configureViews()
-    }
     
     func configureViews() {
         contentView.addSubview(contactImage)
